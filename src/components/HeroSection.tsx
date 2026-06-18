@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { Globe, ArrowRight } from 'lucide-react';
 import { FaInstagram, FaTwitter } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function HeroSection() {
+  const { language, setLanguage, t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -83,6 +85,13 @@ export default function HeroSection() {
 
   return (
     <section className="relative flex flex-col min-h-screen overflow-hidden">
+      {/* Background Poster Image */}
+      <img
+        src="/images/hero-poster.jpg"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover object-bottom select-none pointer-events-none"
+      />
+
       {/* Background Video */}
       <video
         ref={videoRef}
@@ -92,6 +101,7 @@ export default function HeroSection() {
         playsInline
         preload="auto"
         src="/videos/hero.mp4"
+        poster="/images/hero-poster.jpg"
       />
 
       {/* Navbar */}
@@ -99,18 +109,27 @@ export default function HeroSection() {
         <div className="liquid-glass rounded-full max-w-5xl mx-auto px-6 py-3 flex justify-between items-center">
           <div className="flex items-center">
             <Globe className="w-6 h-6 text-white" />
-            <span className="text-white font-semibold text-lg ml-2">Asme</span>
+            <span className="text-white font-semibold text-lg ml-2">AI Forevery</span>
             <div className="hidden md:flex items-center gap-8 ml-8">
-              <a href="#" className="text-white/80 hover:text-white text-sm font-medium transition-colors">Features</a>
-              <a href="#" className="text-white/80 hover:text-white text-sm font-medium transition-colors">Pricing</a>
-              <a href="#" className="text-white/80 hover:text-white text-sm font-medium transition-colors">About</a>
+              <a href="#work" className="text-white/80 hover:text-white text-sm font-medium transition-colors">{t('nav.work')}</a>
+              <a href="#capabilities" className="text-white/80 hover:text-white text-sm font-medium transition-colors">{t('nav.capabilities')}</a>
+              <a href="#philosophy" className="text-white/80 hover:text-white text-sm font-medium transition-colors">{t('nav.philosophy')}</a>
+              <a href="#about" className="text-white/80 hover:text-white text-sm font-medium transition-colors">{t('nav.about')}</a>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="text-white text-sm font-medium hover:text-white/80 transition-colors">Sign Up</button>
-            <button className="liquid-glass rounded-full px-6 py-2 text-white text-sm font-medium hover:bg-white/5 transition-colors">
-              Login
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+              className="text-white/85 hover:text-white text-xs font-medium uppercase tracking-wider px-3 py-1.5 transition-colors cursor-pointer"
+            >
+              {language === 'en' ? '中文' : 'EN'}
             </button>
+            <a 
+              href="#contact" 
+              className="liquid-glass rounded-full px-6 py-2 text-white text-sm font-medium hover:bg-white/5 transition-colors"
+            >
+              {t('nav.contact')}
+            </a>
           </div>
         </div>
       </nav>
@@ -118,14 +137,14 @@ export default function HeroSection() {
       {/* Hero Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[20%]">
         <h1 className="text-7xl md:text-8xl lg:text-9xl text-white tracking-tight whitespace-nowrap font-['Instrument_Serif'] mb-8">
-          Know it <em className="italic">all</em>.
+          {t('hero.title')}<em className="italic">{t('hero.titleItalic')}</em>.
         </h1>
         
         <div className="max-w-xl w-full flex flex-col items-center">
           <div className="liquid-glass rounded-full w-full pl-6 pr-2 py-2 flex items-center gap-3 mb-6">
             <input 
               type="email" 
-              placeholder="Enter your email" 
+              placeholder={t('hero.placeholder')} 
               className="bg-transparent flex-1 text-white placeholder:text-white/40 focus:outline-none text-base"
             />
             <button className="bg-white rounded-full p-3 text-black hover:scale-105 transition-transform shrink-0">
@@ -133,13 +152,16 @@ export default function HeroSection() {
             </button>
           </div>
           
-          <p className="text-white text-sm leading-relaxed px-4 mb-8 max-w-md">
-            Stay updated with the latest news and insights. Subscribe to our newsletter today and never miss out on exciting updates.
+          <p className="text-white/50 text-sm leading-relaxed px-4 mb-8 max-w-md">
+            {t('hero.subtitle')}
           </p>
 
-          <button className="liquid-glass rounded-full px-8 py-3 text-white text-sm font-medium hover:bg-white/5 transition-colors">
-            Manifesto
-          </button>
+          <a 
+            href="#work" 
+            className="liquid-glass rounded-full px-8 py-3 text-white text-sm font-medium hover:bg-white/5 transition-colors"
+          >
+            {t('hero.explore')}
+          </a>
         </div>
       </div>
 

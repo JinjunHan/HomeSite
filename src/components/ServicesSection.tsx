@@ -1,10 +1,12 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   const containerVariants = {
     hidden: {},
@@ -21,7 +23,7 @@ export default function ServicesSection() {
   };
 
   return (
-    <section className="relative bg-black py-28 md:py-40 px-6 overflow-hidden flex flex-col items-center">
+    <section id="capabilities" className="relative bg-black py-28 md:py-40 px-6 overflow-hidden flex flex-col items-center">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.02)_0%,_transparent_60%)] pointer-events-none" />
       
       <div className="relative z-10 max-w-6xl mx-auto w-full" ref={ref}>
@@ -31,8 +33,8 @@ export default function ServicesSection() {
           transition={{ duration: 0.7 }}
           className="flex justify-between items-end mb-12"
         >
-          <h2 className="text-3xl md:text-5xl text-white tracking-tight">What we do</h2>
-          <span className="text-white/40 text-sm tracking-widest uppercase hidden md:block pb-2">Our services</span>
+          <h2 className="text-3xl md:text-5xl text-white tracking-tight">{t('services.title')}</h2>
+          <span className="text-white/40 text-sm tracking-widest uppercase hidden md:block pb-2">{t('services.tag')}</span>
         </motion.div>
 
         <motion.div 
@@ -44,30 +46,26 @@ export default function ServicesSection() {
           {/* Card 1 */}
           <motion.div variants={itemVariants} className="liquid-glass rounded-3xl overflow-hidden group flex flex-col">
             <div className="relative aspect-video overflow-hidden">
-              <video
+              <img
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="auto"
-                src="/videos/strategy.mp4"
+                src="/images/strategy_research.png"
+                alt="Strategy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-10" />
             </div>
             
             <div className="relative z-20 p-6 md:p-8 flex flex-col flex-1">
               <div className="flex justify-between items-start mb-8 md:mb-12">
-                <span className="uppercase tracking-widest text-white/40 text-xs">Strategy</span>
+                <span className="uppercase tracking-widest text-white/40 text-xs">{t('services.card1Tag')}</span>
                 <div className="liquid-glass rounded-full p-2 text-white">
                   <ArrowUpRight className="w-5 h-5" />
                 </div>
               </div>
               
               <div className="mt-auto">
-                <h3 className="text-white text-xl md:text-2xl mb-3 tracking-tight">Research & Insight</h3>
+                <h3 className="text-white text-xl md:text-2xl mb-3 tracking-tight">{t('services.card1Title')}</h3>
                 <p className="text-white/50 text-sm leading-relaxed">
-                  We dig deep into data, culture, and human behavior to surface the insights that drive meaningful, lasting change.
+                  {t('services.card1Body')}
                 </p>
               </div>
             </div>
@@ -76,30 +74,26 @@ export default function ServicesSection() {
           {/* Card 2 */}
           <motion.div variants={itemVariants} className="liquid-glass rounded-3xl overflow-hidden group flex flex-col">
             <div className="relative aspect-video overflow-hidden">
-              <video
+              <img
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="auto"
-                src="/videos/craft.mp4"
+                src="/images/craft_design.png"
+                alt="Craft"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-10" />
             </div>
             
             <div className="relative z-20 p-6 md:p-8 flex flex-col flex-1">
               <div className="flex justify-between items-start mb-8 md:mb-12">
-                <span className="uppercase tracking-widest text-white/40 text-xs">Craft</span>
+                <span className="uppercase tracking-widest text-white/40 text-xs">{t('services.card2Tag')}</span>
                 <div className="liquid-glass rounded-full p-2 text-white">
                   <ArrowUpRight className="w-5 h-5" />
                 </div>
               </div>
               
               <div className="mt-auto">
-                <h3 className="text-white text-xl md:text-2xl mb-3 tracking-tight">Design & Execution</h3>
+                <h3 className="text-white text-xl md:text-2xl mb-3 tracking-tight">{t('services.card2Title')}</h3>
                 <p className="text-white/50 text-sm leading-relaxed">
-                  From concept to launch, we obsess over every detail to deliver experiences that feel effortless and look extraordinary.
+                  {t('services.card2Body')}
                 </p>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
+import PortfolioSection from '../components/PortfolioSection';
 import FeaturedVideoSection from '../components/FeaturedVideoSection';
 import PhilosophySection from '../components/PhilosophySection';
 import ServicesSection from '../components/ServicesSection';
@@ -11,6 +12,7 @@ export default function Index() {
       <div className="flex-grow">
         <HeroSection />
         <AboutSection />
+        <PortfolioSection />
         <FeaturedVideoSection />
         <PhilosophySection />
         <ServicesSection />
