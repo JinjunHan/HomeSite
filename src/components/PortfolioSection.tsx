@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, ArrowRight, Smartphone, Monitor, Copy, Code, Link, Layers } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -23,6 +23,27 @@ interface Project {
 export default function PortfolioSection() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const { t } = useLanguage();
+  const [shuffledIds, setShuffledIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    const ids = [
+      'not-today',
+      'today-recipes',
+      'guessword',
+      'your-tools',
+      'china-med-pass',
+      'onetools',
+      'habit-tracker',
+      'retro-pranks',
+      'localnote-secret',
+      'local-lock-vault'
+    ];
+    for (let i = ids.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [ids[i], ids[j]] = [ids[j], ids[i]];
+    }
+    setShuffledIds(ids);
+  }, []);
 
   const PROJECTS: Project[] = [
     {
@@ -203,7 +224,10 @@ export default function PortfolioSection() {
     }
   ];
 
-  const iosProjects = PROJECTS.filter(project => project.platform === 'ios');
+  const rawIosProjects = PROJECTS.filter(project => project.platform === 'ios');
+  const iosProjects = shuffledIds.length > 0
+    ? [...rawIosProjects].sort((a, b) => shuffledIds.indexOf(a.id) - shuffledIds.indexOf(b.id))
+    : rawIosProjects;
   const macosProject = PROJECTS.find(project => project.platform === 'macos');
   const selectedProject = PROJECTS.find(p => p.id === selectedProjectId) || null;
 
@@ -452,7 +476,7 @@ export default function PortfolioSection() {
                             <span>1 hr ago</span>
                           </div>
                           <p className="text-white/70 text-[11px] font-light leading-relaxed">
-                            "AI Forevery - Premium developer portfolio design specifications..."
+                            "AI For Every - Premium developer portfolio design specifications..."
                           </p>
                         </div>
                       </div>

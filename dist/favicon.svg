@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <!-- Premium Squircle Background (macOS/iOS app icon style) -->
+  <!-- Squircle path using a standard smooth curvature -->
+  <path d="M12 2C6.477 2 2 6.477 2 12v40c0 5.523 4.477 10 10 10h40c5.523 0 10-4.477 10-10V12c0-5.523-4.477-10-10-10H12z" fill="#0A0A0A" />
+  
+  <!-- Inner dark metallic gradient -->
+  <path d="M12 2.75C6.89 2.75 2.75 6.89 2.75 12v40c0 5.11 4.14 9.25 9.25 9.25h40c5.11 0 9.25-4.14 9.25-9.25V12c0-5.11-4.14-9.25-9.25-9.25H12z" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="1.5" />
+  
+  <!-- Stylized Globe (Thin Premium Lines) -->
+  <g stroke="url(#globeGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer boundary of the globe -->
+    <circle cx="32" cy="32" r="18" />
+    
+    <!-- Equator -->
+    <line x1="14" y1="32" x2="50" y2="32" />
+    
+    <!-- Latitude lines -->
+    <path d="M18.8 23h26.4" stroke-width="2" opacity="0.8" />
+    <path d="M18.8 41h26.4" stroke-width="2" opacity="0.8" />
+    
+    <!-- Longitude lines (meridians) -->
+    <line x1="32" y1="14" x2="32" y2="50" />
+    <!-- Curved meridians -->
+    <path d="M32 14c5.5 4.5 5.5 31.5 0 36" />
+    <path d="M32 14c-5.5 4.5-5.5 31.5 0 36" />
+  </g>
+  
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#141416" />
+      <stop offset="100%" stop-color="#080809" />
+    </linearGradient>
+    
+    <!-- Liquid-glass border gradient -->
+    <linearGradient id="borderGrad" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />
+      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.2" />
+    </linearGradient>
+    
+    <!-- Globe lines silver-white gradient -->
+    <linearGradient id="globeGrad" x1="32" y1="14" x2="32" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#D4D4D8" />
+    </linearGradient>
+  </defs>
+</svg>

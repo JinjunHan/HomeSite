@@ -15,6 +15,19 @@ export default function Footer() {
           <span className="w-8 h-px bg-current"></span>
         </div>
 
+        {/* Contact Email */}
+        <div className="flex flex-col items-center gap-1.5 my-2">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium">
+            {language === 'zh' ? '与我联系' : 'Get in Touch'}
+          </span>
+          <a 
+            href="mailto:286116014@qq.com" 
+            className="text-lg md:text-xl font-light text-white/80 hover:text-white transition-colors duration-300 tracking-wide font-mono relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white/20 hover:after:bg-white transition-all"
+          >
+            286116014@qq.com
+          </a>
+        </div>
+
         {/* Friendly Links */}
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-xs text-white/30">
           <span className="text-white/20">{language === 'zh' ? '友情链接：' : 'Links:'}</span>

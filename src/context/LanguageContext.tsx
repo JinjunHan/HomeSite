@@ -16,6 +16,9 @@ const translations = {
       titleItalic: 'all',
       subtitle: 'Stay updated with my latest projects, technical insights, and creative experiments.',
       placeholder: 'Subscribe to insights',
+      subscribeSuccess: 'Subscription successful! Thank you.',
+      subscribeInvalidEmail: 'Please enter a valid email address.',
+      subscribing: 'Subscribing...',
       explore: 'Explore Work'
     },
     about: {
@@ -185,6 +188,9 @@ const translations = {
       titleItalic: '一切',
       subtitle: '关注我的最新项目、技术洞察和创意实验。',
       placeholder: '订阅我的最新动态',
+      subscribeSuccess: '订阅成功！感谢您的关注。',
+      subscribeInvalidEmail: '请输入有效的邮箱地址。',
+      subscribing: '订阅中...',
       explore: '探索作品'
     },
     about: {
@@ -211,7 +217,7 @@ const translations = {
       filterMac: 'macOS',
       apps: {
         notToday: {
-          title: 'Not Today',
+          title: '今日不做',
           subtitle: '今日不做',
           category: '生活方式',
           role: '独立创作者 & 开发者',
@@ -220,7 +226,7 @@ const translations = {
           price: '￥8.00'
         },
         todayRecipes: {
-          title: 'Today Recipes',
+          title: '今日食谱',
           subtitle: '今日食谱与餐食规划',
           category: '美食与佳饮',
           role: '独立创作者 & 开发者',
@@ -229,7 +235,7 @@ const translations = {
           price: '免费'
         },
         guessWord: {
-          title: 'GuessWord Lab',
+          title: '猜词挑战Lab',
           subtitle: '语义相似度猜词游戏',
           category: '游戏 / 休闲',
           role: '独立创作者 & 开发者',
