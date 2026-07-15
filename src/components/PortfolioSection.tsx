@@ -75,7 +75,7 @@ export default function PortfolioSection() {
       description: t('portfolio.apps.todayRecipes.description'),
       details: t('portfolio.apps.todayRecipes.details'),
       price: t('portfolio.apps.todayRecipes.price'),
-      homepage: 'https://today-recipes-71c0e.web.app/',
+      homepage: 'https://www.aiforevery.cn/myrecipes/',
       appStore: 'https://apps.apple.com/us/app/today-recipes-meal-planner/id6757597738'
     },
     {
