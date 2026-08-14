@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, ArrowRight, Smartphone, Monitor, Copy, Code, Link, Layers } from 'lucide-react';
+import { X, ExternalLink, ArrowRight, Smartphone, Monitor, Copy, Code, Link, Layers, Download, Terminal, CheckCircle2, Zap, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface Project {
@@ -22,6 +22,7 @@ interface Project {
 
 export default function PortfolioSection() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [activeMacosTab, setActiveMacosTab] = useState<string>('xcodecontrol');
   const { t } = useLanguage();
   const [shuffledIds, setShuffledIds] = useState<string[]>([]);
 
@@ -46,6 +47,22 @@ export default function PortfolioSection() {
   }, []);
 
   const PROJECTS: Project[] = [
+    {
+      id: 'xcodecontrol',
+      title: t('portfolio.apps.xcodecontrol.title'),
+      subtitle: t('portfolio.apps.xcodecontrol.subtitle'),
+      category: t('portfolio.apps.xcodecontrol.category'),
+      icon: '/images/xcodecontrol_icon.png',
+      bgGradient: 'from-[#0055D4] via-[#0A84FF] to-[#5E5CE6]',
+      platform: 'macos',
+      role: t('portfolio.apps.xcodecontrol.role'),
+      tech: ['Swift / AppKit', 'xcodebuild CLI', 'Apple Notarized', 'Global Hotkeys', 'Simctl & Devicectl'],
+      description: t('portfolio.apps.xcodecontrol.description'),
+      details: t('portfolio.apps.xcodecontrol.details'),
+      price: t('portfolio.apps.xcodecontrol.price'),
+      homepage: 'https://jinjunhan.github.io/XcodeControl/',
+      appStore: 'https://github.com/JinjunHan/XcodeControl/releases/latest'
+    },
     {
       id: 'not-today',
       title: t('portfolio.apps.notToday.title'),
@@ -228,7 +245,8 @@ export default function PortfolioSection() {
   const iosProjects = shuffledIds.length > 0
     ? [...rawIosProjects].sort((a, b) => shuffledIds.indexOf(a.id) - shuffledIds.indexOf(b.id))
     : rawIosProjects;
-  const macosProject = PROJECTS.find(project => project.platform === 'macos');
+  const macosProjects = PROJECTS.filter(project => project.platform === 'macos');
+  const activeMacosProject = macosProjects.find(project => project.id === activeMacosTab) || macosProjects[0];
   const selectedProject = PROJECTS.find(p => p.id === selectedProjectId) || null;
 
   return (
@@ -323,19 +341,46 @@ export default function PortfolioSection() {
         </div>
 
         {/* macOS Spotlight Zone */}
-        {macosProject && (
+        {macosProjects.length > 0 && (
           <div className="w-full mt-24">
-            <div className="mb-10 flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Monitor className="w-5 h-5 text-white/60" />
-                <h3 className="text-xl md:text-2xl text-white/90 font-medium tracking-tight">
-                  {t('portfolio.macosSectionTitle')}
-                </h3>
+            <div className="mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <Monitor className="w-5 h-5 text-white/60" />
+                  <h3 className="text-xl md:text-2xl text-white/90 font-medium tracking-tight">
+                    {t('portfolio.macosSectionTitle')}
+                  </h3>
+                </div>
+                <span className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full font-mono">
+                  macOS ({macosProjects.length})
+                </span>
               </div>
-              <div className="h-px flex-grow bg-white/10" />
-              <span className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full font-mono">
-                macOS
-              </span>
+
+              {/* Segmented Switcher for macOS Apps */}
+              <div className="flex items-center bg-white/[0.04] p-1 rounded-2xl border border-white/10 self-start sm:self-auto">
+                {macosProjects.map((proj) => {
+                  const isActive = activeMacosTab === proj.id;
+                  return (
+                    <button
+                      key={proj.id}
+                      onClick={() => setActiveMacosTab(proj.id)}
+                      className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                        isActive
+                          ? 'bg-white/20 text-white shadow-[0_2px_12px_rgba(0,0,0,0.4)] border border-white/15'
+                          : 'text-white/40 hover:text-white/70 border border-transparent'
+                      }`}
+                    >
+                      <img src={proj.icon} alt={proj.title} className="w-4 h-4 rounded-md object-cover" />
+                      <span>{proj.title}</span>
+                      {proj.id === 'xcodecontrol' && (
+                        <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded-full border border-blue-500/30 font-mono tracking-wider">
+                          NEW
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Desktop window simulator */}
@@ -349,7 +394,9 @@ export default function PortfolioSection() {
                 </div>
                 <div className="text-xs text-white/30 font-mono absolute inset-x-0 mx-auto w-fit flex items-center gap-1.5 justify-center">
                   <Monitor className="w-3 h-3" />
-                  SkyPaste.app &mdash; {t('portfolio.macosSectionSubtitle')}
+                  {activeMacosProject.id === 'xcodecontrol'
+                    ? 'XcodeControl.app — Floating Xcode Quick Runner'
+                    : `SkyPaste.app — ${t('portfolio.macosSectionSubtitle')}`}
                 </div>
               </div>
 
@@ -360,31 +407,31 @@ export default function PortfolioSection() {
                   <div className="flex items-center gap-5 mb-6">
                     <motion.div
                       whileHover={{ scale: 1.05, rotate: 2 }}
-                      onClick={() => setSelectedProjectId(macosProject.id)}
+                      onClick={() => setSelectedProjectId(activeMacosProject.id)}
                       className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.4)] border border-white/10 cursor-pointer flex-shrink-0"
                     >
-                      <img src={macosProject.icon} alt={macosProject.title} className="w-full h-full object-cover" />
+                      <img src={activeMacosProject.icon} alt={activeMacosProject.title} className="w-full h-full object-cover" />
                     </motion.div>
                     <div>
                       <span className="text-white/40 text-xs uppercase tracking-widest block mb-1">
-                        {macosProject.category} &bull; {macosProject.price}
+                        {activeMacosProject.category} &bull; {activeMacosProject.price}
                       </span>
                       <h4 
-                        onClick={() => setSelectedProjectId(macosProject.id)}
+                        onClick={() => setSelectedProjectId(activeMacosProject.id)}
                         className="text-white text-3xl font-semibold tracking-tight hover:text-white/80 cursor-pointer transition-colors"
                       >
-                        {macosProject.title}
+                        {activeMacosProject.title}
                       </h4>
                     </div>
                   </div>
 
                   <p className="text-white/70 text-sm md:text-base leading-relaxed mb-6 font-light">
-                    {macosProject.description}
+                    {activeMacosProject.description}
                   </p>
 
                   {/* Tech stack badges */}
                   <div className="flex flex-wrap gap-2 mb-8">
-                    {macosProject.tech.map((tech) => (
+                    {activeMacosProject.tech.map((tech) => (
                       <span key={tech} className="bg-white/5 border border-white/5 rounded-full px-3 py-1 text-xs text-white/60">
                         {tech}
                       </span>
@@ -394,94 +441,206 @@ export default function PortfolioSection() {
                   {/* Action buttons */}
                   <div className="flex flex-wrap gap-4 w-full sm:w-auto">
                     <button
-                      onClick={() => setSelectedProjectId(macosProject.id)}
+                      onClick={() => setSelectedProjectId(activeMacosProject.id)}
                       className="bg-white text-black hover:scale-105 transition-transform rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer"
                     >
                       {t('portfolio.viewDetails')} <ArrowRight className="w-4 h-4" />
                     </button>
-                    <a
-                      href={macosProject.appStore}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="liquid-glass border border-white/10 text-white hover:bg-white/5 transition-colors rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2"
-                    >
-                      {t('portfolio.appStore')} <ExternalLink className="w-4 h-4" />
-                    </a>
+                    {activeMacosProject.id === 'xcodecontrol' ? (
+                      <>
+                        <a
+                          href={activeMacosProject.homepage}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="liquid-glass border border-white/10 text-white hover:bg-white/5 transition-colors rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2"
+                        >
+                          {t('portfolio.homepage')} <ExternalLink className="w-4 h-4" />
+                        </a>
+                        <a
+                          href={activeMacosProject.appStore}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-colors rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2"
+                        >
+                          <Download className="w-4 h-4" />
+                          {t('portfolio.downloadDmg')}
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        <a
+                          href={activeMacosProject.homepage}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="liquid-glass border border-white/10 text-white hover:bg-white/5 transition-colors rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2"
+                        >
+                          {t('portfolio.homepage')} <ExternalLink className="w-4 h-4" />
+                        </a>
+                        <a
+                          href={activeMacosProject.appStore}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="liquid-glass border border-white/10 text-white hover:bg-white/5 transition-colors rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2"
+                        >
+                          {t('portfolio.appStore')} <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
 
                 {/* Right Col: High-fidelity App UI Preview */}
                 <div className="lg:col-span-7 w-full">
-                  <div className="bg-[#121212]/90 rounded-2xl border border-white/5 overflow-hidden flex flex-col h-[320px] md:h-[360px] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                    {/* Mock Search Bar & Filter Tabs */}
-                    <div className="px-4 py-3 bg-white/[0.02] border-b border-white/5 flex flex-col md:flex-row gap-3 justify-between items-center">
-                      <div className="w-full md:w-48 h-7 bg-white/5 rounded-md border border-white/5 flex items-center px-3 text-[11px] text-white/30 gap-1.5">
-                        <span className="w-2.5 h-2.5 border border-white/35 rounded-full flex items-center justify-center text-[8px]">⌘</span>
-                        <span>Search history...</span>
-                      </div>
+                  {activeMacosProject.id === 'xcodecontrol' ? (
+                    /* XcodeControl Floating Runner Preview */
+                    <div className="bg-[#101318]/95 rounded-2xl border border-blue-500/20 overflow-hidden flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-5 md:p-6 relative group">
+                      {/* Ambient background glow */}
+                      <div className="absolute -top-24 -right-24 w-60 h-60 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
                       
-                      <div className="flex gap-1 text-[10px] font-mono">
-                        <span className="px-2 py-0.5 rounded bg-white/10 text-white font-medium">All</span>
-                        <span className="px-2 py-0.5 rounded text-white/40 hover:text-white/70 cursor-pointer">Text</span>
-                        <span className="px-2 py-0.5 rounded text-white/40 hover:text-white/70 cursor-pointer">Code</span>
-                        <span className="px-2 py-0.5 rounded text-white/40 hover:text-white/70 cursor-pointer">Links</span>
+                      {/* Floating Runner Header Simulator */}
+                      <div className="flex items-center justify-between pb-4 border-b border-white/5">
+                        <div className="flex items-center gap-2.5">
+                          <img src="/images/xcodecontrol_icon.png" alt="XcodeControl" className="w-7 h-7 rounded-lg shadow-md border border-white/10" />
+                          <div className="text-left">
+                            <div className="text-xs font-semibold text-white tracking-wide">XcodeControl</div>
+                            <div className="text-[10px] text-white/40 font-mono">Floating Quick Runner</div>
+                          </div>
+                        </div>
+
+                        {/* Global Hotkey Badge */}
+                        <div className="flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/30 px-2.5 py-1 rounded-lg">
+                          <span className="text-[10px] text-blue-300 font-medium">Hotkey</span>
+                          <kbd className="px-1.5 py-0.5 bg-black/40 text-blue-200 rounded text-[10px] font-mono border border-blue-400/20">⌥⌘R</kbd>
+                        </div>
+                      </div>
+
+                      {/* Project & Target Scheme Selectors */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4 text-left font-mono text-[11px]">
+                        <div className="bg-black/40 p-2.5 rounded-xl border border-white/5 flex flex-col gap-1">
+                          <span className="text-[10px] text-white/40 uppercase tracking-wider font-sans">Project / Workspace</span>
+                          <span className="text-white/90 truncate flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                            HomeSite.xcworkspace
+                          </span>
+                        </div>
+                        <div className="bg-black/40 p-2.5 rounded-xl border border-white/5 flex flex-col gap-1">
+                          <span className="text-[10px] text-white/40 uppercase tracking-wider font-sans">Destination</span>
+                          <span className="text-white/90 truncate flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                            iPhone 16 Pro (Simulator)
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Live Terminal & Build Output */}
+                      <div className="bg-black/60 rounded-xl p-3.5 border border-white/5 font-mono text-[11px] text-left leading-relaxed flex flex-col gap-1">
+                        <div className="flex justify-between items-center text-[10px] text-white/30 mb-1 font-sans">
+                          <span className="flex items-center gap-1.5"><Terminal className="w-3 h-3 text-blue-400" /> Fast Execution</span>
+                          <span className="text-green-400 flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> SUCCEEDED (0.6s)</span>
+                        </div>
+                        <div className="text-white/40 text-[10px] font-mono">
+                          $ xcodebuild -workspace HomeSite.xcworkspace -scheme HomeSite
+                        </div>
+                        <div className="text-blue-300/90 text-[10px] font-mono">
+                          ** BUILD SUCCEEDED ** [0.627 sec]
+                        </div>
+                        <div className="text-white/70 text-[10px] font-mono">
+                          [xcrun simctl] Booting & launching on target simulator...
+                        </div>
+                        <div className="text-green-300 text-[10px] font-mono">
+                          ✓ App process 89124 started in foreground
+                        </div>
+                      </div>
+
+                      {/* Feature Highlights Footer */}
+                      <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-white/5 text-[10px] text-white/50 text-center font-sans">
+                        <div className="flex items-center justify-center gap-1">
+                          <Zap className="w-3 h-3 text-amber-400" />
+                          <span>Zero Switch</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-1">
+                          <Smartphone className="w-3 h-3 text-blue-400" />
+                          <span>iOS & macOS</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-1">
+                          <ShieldCheck className="w-3 h-3 text-emerald-400" />
+                          <span>Apple Notarized</span>
+                        </div>
                       </div>
                     </div>
-
-                    {/* Mock Clipboard List */}
-                    <div className="flex-grow flex text-left font-sans text-xs">
-                      {/* Sidebar Categories */}
-                      <div className="w-1/4 bg-white/[0.01] border-r border-white/5 p-3 flex flex-col gap-2">
-                        <div className="px-2.5 py-1.5 rounded-lg bg-white/5 text-white flex items-center gap-1.5 font-medium">
-                          <Layers className="w-3.5 h-3.5 text-blue-400" />
-                          <span>History</span>
+                  ) : (
+                    /* SkyPaste Mockup */
+                    <div className="bg-[#121212]/90 rounded-2xl border border-white/5 overflow-hidden flex flex-col h-[320px] md:h-[360px] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                      {/* Mock Search Bar & Filter Tabs */}
+                      <div className="px-4 py-3 bg-white/[0.02] border-b border-white/5 flex flex-col md:flex-row gap-3 justify-between items-center">
+                        <div className="w-full md:w-48 h-7 bg-white/5 rounded-md border border-white/5 flex items-center px-3 text-[11px] text-white/30 gap-1.5">
+                          <span className="w-2.5 h-2.5 border border-white/35 rounded-full flex items-center justify-center text-[8px]">⌘</span>
+                          <span>Search history...</span>
                         </div>
-                        <div className="px-2.5 py-1.5 rounded-lg text-white/40 hover:text-white/60 flex items-center gap-1.5 cursor-pointer">
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Pinned</span>
+                        
+                        <div className="flex gap-1 text-[10px] font-mono">
+                          <span className="px-2 py-0.5 rounded bg-white/10 text-white font-medium">All</span>
+                          <span className="px-2 py-0.5 rounded text-white/40 hover:text-white/70 cursor-pointer">Text</span>
+                          <span className="px-2 py-0.5 rounded text-white/40 hover:text-white/70 cursor-pointer">Code</span>
+                          <span className="px-2 py-0.5 rounded text-white/40 hover:text-white/70 cursor-pointer">Links</span>
                         </div>
                       </div>
 
-                      {/* Content List */}
-                      <div className="w-3/4 p-4 flex flex-col gap-3.5 overflow-y-auto">
-                        {/* Mock Item 1: Code */}
-                        <div className="p-3 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/10 transition-colors flex flex-col gap-1.5">
-                          <div className="flex justify-between items-center text-[10px] text-white/35">
-                            <span className="flex items-center gap-1"><Code className="w-3 h-3 text-purple-400" /> CSS Code</span>
-                            <span>2 mins ago</span>
+                      {/* Mock Clipboard List */}
+                      <div className="flex-grow flex text-left font-sans text-xs">
+                        {/* Sidebar Categories */}
+                        <div className="w-1/4 bg-white/[0.01] border-r border-white/5 p-3 flex flex-col gap-2">
+                          <div className="px-2.5 py-1.5 rounded-lg bg-white/5 text-white flex items-center gap-1.5 font-medium">
+                            <Layers className="w-3.5 h-3.5 text-blue-400" />
+                            <span>History</span>
                           </div>
-                          <pre className="font-mono text-[10px] text-purple-200/90 bg-black/40 p-2 rounded overflow-x-auto leading-relaxed border border-white/[0.02]">
+                          <div className="px-2.5 py-1.5 rounded-lg text-white/40 hover:text-white/60 flex items-center gap-1.5 cursor-pointer">
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Pinned</span>
+                          </div>
+                        </div>
+
+                        {/* Content List */}
+                        <div className="w-3/4 p-4 flex flex-col gap-3.5 overflow-y-auto">
+                          {/* Mock Item 1: Code */}
+                          <div className="p-3 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/10 transition-colors flex flex-col gap-1.5">
+                            <div className="flex justify-between items-center text-[10px] text-white/35">
+                              <span className="flex items-center gap-1"><Code className="w-3 h-3 text-purple-400" /> CSS Code</span>
+                              <span>2 mins ago</span>
+                            </div>
+                            <pre className="font-mono text-[10px] text-purple-200/90 bg-black/40 p-2 rounded overflow-x-auto leading-relaxed border border-white/[0.02]">
 {`.glassmorphism {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
 }`}
-                          </pre>
-                        </div>
-
-                        {/* Mock Item 2: Link */}
-                        <div className="p-3 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/10 transition-colors flex flex-col gap-1.5">
-                          <div className="flex justify-between items-center text-[10px] text-white/35">
-                            <span className="flex items-center gap-1"><Link className="w-3 h-3 text-blue-400" /> URL Link</span>
-                            <span>15 mins ago</span>
+                            </pre>
                           </div>
-                          <span className="text-blue-400 font-mono text-[10px] truncate hover:underline cursor-pointer">
-                            https://skypaste.yourtools.xyz/
-                          </span>
-                        </div>
 
-                        {/* Mock Item 3: Text */}
-                        <div className="p-3 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/10 transition-colors flex flex-col gap-1.5">
-                          <div className="flex justify-between items-center text-[10px] text-white/35">
-                            <span>📝 Copied Text</span>
-                            <span>1 hr ago</span>
+                          {/* Mock Item 2: Link */}
+                          <div className="p-3 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/10 transition-colors flex flex-col gap-1.5">
+                            <div className="flex justify-between items-center text-[10px] text-white/35">
+                              <span className="flex items-center gap-1"><Link className="w-3 h-3 text-blue-400" /> URL Link</span>
+                              <span>15 mins ago</span>
+                            </div>
+                            <span className="text-blue-400 font-mono text-[10px] truncate hover:underline cursor-pointer">
+                              https://skypaste.yourtools.xyz/
+                            </span>
                           </div>
-                          <p className="text-white/70 text-[11px] font-light leading-relaxed">
-                            "AI For Every - Premium developer portfolio design specifications..."
-                          </p>
+
+                          {/* Mock Item 3: Text */}
+                          <div className="p-3 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/10 transition-colors flex flex-col gap-1.5">
+                            <div className="flex justify-between items-center text-[10px] text-white/35">
+                              <span>📝 Copied Text</span>
+                              <span>1 hr ago</span>
+                            </div>
+                            <p className="text-white/70 text-[11px] font-light leading-relaxed">
+                              "AI For Every - Premium developer portfolio design specifications..."
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -564,15 +723,26 @@ export default function PortfolioSection() {
                       </div>
                     </div>
 
-                    <div className="flex gap-4">
-                      <a
-                        href={selectedProject.appStore}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-white text-black hover:scale-105 transition-transform rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer"
-                      >
-                        {t('portfolio.appStore')} <Smartphone className="w-4 h-4" />
-                      </a>
+                    <div className="flex flex-wrap gap-4">
+                      {selectedProject.id === 'xcodecontrol' ? (
+                        <a
+                          href={selectedProject.appStore}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-500 text-white hover:scale-105 transition-all rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer shadow-lg shadow-blue-500/20"
+                        >
+                          <Download className="w-4 h-4" /> {t('portfolio.downloadDmg')}
+                        </a>
+                      ) : (
+                        <a
+                          href={selectedProject.appStore}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-white text-black hover:scale-105 transition-transform rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer"
+                        >
+                          {t('portfolio.appStore')} <Smartphone className="w-4 h-4" />
+                        </a>
+                      )}
                       <a
                         href={selectedProject.homepage}
                         target="_blank"

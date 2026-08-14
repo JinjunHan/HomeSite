@@ -39,11 +39,21 @@ const translations = {
       role: 'Role',
       tech: 'Tech Stack',
       appStore: 'App Store',
+      downloadDmg: 'Download DMG',
       homepage: 'Homepage',
       filterAll: 'All',
       filterIos: 'iOS',
       filterMac: 'macOS',
       apps: {
+        xcodecontrol: {
+          title: 'XcodeControl',
+          subtitle: 'Floating Xcode Runner',
+          category: 'Developer Tools',
+          role: 'Creator & Developer',
+          description: 'Build and run your Xcode project from a floating window — never open Xcode, never switch windows. Press ⌥⌘R to build, install, and launch instantly.',
+          details: 'In the vibe coding era where AI writes code, Xcode is often needed for just one task: Run. XcodeControl moves that into an always-on floating window. Press ⌥⌘R from any editor or app to build, install, and launch straight to iOS simulators, connected physical devices, or Mac. Features multi-project switching, readable error summaries, complete build logs on demand, and 100% local privacy with Apple notarization.',
+          price: 'Free'
+        },
         notToday: {
           title: 'Not Today',
           subtitle: 'One Less Thing',
@@ -211,11 +221,21 @@ const translations = {
       role: '角色',
       tech: '技术栈',
       appStore: 'App Store',
+      downloadDmg: '下载 DMG',
       homepage: '官方主页',
       filterAll: '全部',
       filterIos: 'iOS',
       filterMac: 'macOS',
       apps: {
+        xcodecontrol: {
+          title: 'XcodeControl',
+          subtitle: '悬浮窗极速构建工具',
+          category: '开发者工具',
+          role: '独立创作者 & 开发者',
+          description: '悬浮窗一键编译运行 Xcode 项目 —— 不用打开 Xcode，不用切换窗口。按下 ⌥⌘R，一键极速构建、安装并启动。',
+          details: '专为 AI 编程与 Vibe Coding 时代打造。以常驻悬浮窗的形式浮于代码编辑器之上：支持一键选择 Scheme 与运行目标，按下 ⌥⌘R 即可完成编译、安装与启动，思路无需被打断。支持 iOS 模拟器、真机及 Mac 应用构建，提供多项目管理、直观的错误日志摘要分析。100% 本地纯净运行，零遥测，通过 Apple 官方公证。',
+          price: '免费'
+        },
         notToday: {
           title: '今日不做',
           subtitle: '今日不做',

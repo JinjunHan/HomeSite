@@ -48,6 +48,15 @@ export default function Footer() {
           >
             你的工具
           </a>
+          <span className="text-white/10">·</span>
+          <a 
+            href="https://jinjunhan.github.io/XcodeControl/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors duration-300"
+          >
+            XcodeControl
+          </a>
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-sm text-white/40">
