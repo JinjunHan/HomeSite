@@ -124,7 +124,7 @@ export default function PortfolioSection() {
       description: t('portfolio.apps.yourTools.description'),
       details: t('portfolio.apps.yourTools.details'),
       price: t('portfolio.apps.yourTools.price'),
-      homepage: 'https://yourtools.xyz',
+      homepage: 'https://www.yourtools.xyz',
       appStore: 'https://apps.apple.com/us/app/your-tools-ai-toolbox/id6670400942'
     },
     {
