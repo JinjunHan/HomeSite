@@ -45,6 +45,15 @@ const translations = {
       filterIos: 'iOS',
       filterMac: 'macOS',
       apps: {
+        babyfly: {
+          title: 'BabyFly',
+          subtitle: 'Private Childhood Journal',
+          category: 'Lifestyle',
+          role: 'Creator & Developer',
+          description: "BabyFly keeps a child's words, photos, and original voices in a private family memory book. Cherish the little things that make childhood theirs.",
+          details: "BabyFly is a private baby journal and family memory book for parents and caregivers. Capture quick notes, record authentic voices, and save precious photos and videos as they happen. Features year-by-year growth yearbooks, voice playback & comparison over the years, on-device AI organization & keyword search, and complete local backup/restore with zero cloud dependencies for absolute privacy.",
+          price: 'Free'
+        },
         xcodecontrol: {
           title: 'XcodeControl',
           subtitle: 'Floating Xcode Runner',
@@ -227,6 +236,15 @@ const translations = {
       filterIos: 'iOS',
       filterMac: 'macOS',
       apps: {
+        babyfly: {
+          title: 'BabyFly',
+          subtitle: '私密家庭成长手记',
+          category: '生活方式',
+          role: '独立创作者 & 开发者',
+          description: '记录孩子的童年言语、原声与时光。无云端依赖的私密成长手记，留住独属于他们的童年回忆。',
+          details: 'BabyFly 专为父母与看护者打造，用于安全私密地记录孩子的童年时光。随时记下一句童言童语、录下清脆的原声、收纳珍贵照片与视频。支持按孩子与成长阶段归档、年度成长册回顾、岁月声音对比回放，以及基于端侧 AI 的内容整理与关键词检索。所有数据 100% 留存在本地设备，支持完整物理备份与恢复，绝不上传云端，坚守家庭隐私。',
+          price: '免费'
+        },
         xcodecontrol: {
           title: 'XcodeControl',
           subtitle: '悬浮窗极速构建工具',

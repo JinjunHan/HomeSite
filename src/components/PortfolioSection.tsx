@@ -28,6 +28,7 @@ export default function PortfolioSection() {
 
   useEffect(() => {
     const ids = [
+      'babyfly',
       'not-today',
       'today-recipes',
       'guessword',
@@ -43,10 +44,27 @@ export default function PortfolioSection() {
       const j = Math.floor(Math.random() * (i + 1));
       [ids[i], ids[j]] = [ids[j], ids[i]];
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShuffledIds(ids);
   }, []);
 
   const PROJECTS: Project[] = [
+    {
+      id: 'babyfly',
+      title: t('portfolio.apps.babyfly.title'),
+      subtitle: t('portfolio.apps.babyfly.subtitle'),
+      category: t('portfolio.apps.babyfly.category'),
+      icon: '/images/babyfly_icon.jpg',
+      bgGradient: 'from-[#0d5c4b] via-[#15493d] to-[#34d399]',
+      platform: 'ios',
+      role: t('portfolio.apps.babyfly.role'),
+      tech: ['SwiftUI', 'AVAudioEngine / Voice', 'On-Device AI', 'Local Privacy Vault', 'iOS & iPadOS'],
+      description: t('portfolio.apps.babyfly.description'),
+      details: t('portfolio.apps.babyfly.details'),
+      price: t('portfolio.apps.babyfly.price'),
+      homepage: 'https://babyfly.aiforevery.cn/',
+      appStore: 'https://apps.apple.com/app/id6813407638'
+    },
     {
       id: 'xcodecontrol',
       title: t('portfolio.apps.xcodecontrol.title'),
