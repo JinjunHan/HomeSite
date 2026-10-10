@@ -174,6 +174,7 @@ export default function HeroSection() {
           <div className="flex items-center">
             <Globe className="w-6 h-6 text-white" />
             <span className="text-white font-semibold text-lg ml-2">AI For Every</span>
+            <span className="hidden sm:inline-flex items-center text-[10px] uppercase tracking-wider text-white/60 bg-white/10 border border-white/15 px-2.5 py-0.5 rounded-full ml-3 font-mono">OPC Collective</span>
             <div className="hidden md:flex items-center gap-8 ml-8">
               <a href="#work" className="text-white/80 hover:text-white text-sm font-medium transition-colors">{t('nav.work')}</a>
               <a href="#capabilities" className="text-white/80 hover:text-white text-sm font-medium transition-colors">{t('nav.capabilities')}</a>

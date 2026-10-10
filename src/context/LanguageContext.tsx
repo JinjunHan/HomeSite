@@ -22,16 +22,16 @@ const translations = {
       explore: 'Explore Work'
     },
     about: {
-      tag: 'About',
-      text1: 'Building ',
-      textItalic1: 'exceptional digital experiences',
-      text2: ' at the intersection of ',
+      tag: 'The Collective',
+      text1: 'One-person companies, united. ',
+      textItalic1: 'An Indie Creators (OPC) Collective',
+      text2: ' crafting exceptional native experiences at the crossroads of ',
       textItalic2: 'design, code, and play.'
     },
     portfolio: {
-      tag: 'Portfolio',
-      title: 'My iOS & macOS Apps',
-      subtitle: 'A showcase of natively crafted applications published on the App Store, prioritizing design, privacy, and user experience.',
+      tag: 'OPC Collective',
+      title: 'iOS & macOS App Ecosystem',
+      subtitle: 'A curated showcase natively crafted by an alliance of independent creators (OPCs), prioritizing aesthetics, privacy, and craftsmanship.',
       iosSectionTitle: 'iOS Mobile Applications',
       macosSectionTitle: 'macOS Desktop Spotlight',
       macosSectionSubtitle: 'Natively optimized for desktop productivity, layout, and privacy.',
@@ -213,16 +213,16 @@ const translations = {
       explore: '探索作品'
     },
     about: {
-      tag: '关于我',
-      text1: '在',
-      textItalic1: '设计、代码与趣味',
-      text2: '的十字路口，构建',
-      textItalic2: '非凡的数字化体验。'
+      tag: '关于联盟',
+      text1: '一人公司，但绝不孤军奋战。',
+      textItalic1: '独立创作者 (OPC) 联合展馆',
+      text2: '在设计、代码与趣味的十字路口，汇聚',
+      textItalic2: '非凡的数字化原生体验。'
     },
     portfolio: {
-      tag: '作品集',
-      title: '我的 iOS & macOS 应用',
-      subtitle: '在 App Store 上发布的原生应用展示，秉承设计美学、隐私至上和极致体验。',
+      tag: 'OPC 联合矩阵',
+      title: 'iOS & macOS 精选应用矩阵',
+      subtitle: '由数位独立创作者共同打造的原生应用矩阵，秉承设计美学、离线隐私与极致手艺——抱团取暖，相互照亮。',
       iosSectionTitle: 'iOS 移动应用',
       macosSectionTitle: 'macOS 桌面应用专题',
       macosSectionSubtitle: '专为 macOS 桌面端优化的原生效率工具，无缝提效。',

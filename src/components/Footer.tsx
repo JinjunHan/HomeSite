@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Contact Email */}
         <div className="flex flex-col items-center gap-1.5 my-2">
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium">
-            {language === 'zh' ? '与我联系' : 'Get in Touch'}
+            {language === 'zh' ? '与我们联系 / 抱团合作' : 'Get in Touch & Collaborate'}
           </span>
           <a 
             href="mailto:286116014@qq.com" 
@@ -26,6 +26,9 @@ export default function Footer() {
           >
             286116014@qq.com
           </a>
+          <p className="text-xs text-white/40 max-w-md mt-1 text-center font-light">
+            {language === 'zh' ? '也是独立开发者？欢迎携带优质原生作品与我们抱团交流。' : 'Indie creator? Welcome to connect and build together with our collective.'}
+          </p>
         </div>
 
         {/* Friendly Links */}
