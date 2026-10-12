@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, ArrowRight, Smartphone, Monitor, Copy, Code, Link, Layers, Download, Terminal, CheckCircle2, Zap, ShieldCheck } from 'lucide-react';
+import { X, ExternalLink, ArrowRight, Smartphone, Monitor, Copy, Code, Link, Layers, Download, Terminal, CheckCircle2, Zap, ShieldCheck, Globe, Palette, Sparkles, Lock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface Project {
@@ -10,19 +10,20 @@ interface Project {
   category: string;
   icon: string;
   bgGradient: string;
-  platform: 'ios' | 'macos';
+  platform: 'ios' | 'macos' | 'web';
   role: string;
   tech: string[];
   description: string;
   details: string;
   price: string;
   homepage: string;
-  appStore: string;
+  appStore?: string;
 }
 
 export default function PortfolioSection() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [activeMacosTab, setActiveMacosTab] = useState<string>('xcodecontrol');
+  const [activeWebTab, setActiveWebTab] = useState<string>('wenpai');
   const { t } = useLanguage();
   const [shuffledIds, setShuffledIds] = useState<string[]>([]);
 
@@ -256,6 +257,22 @@ export default function PortfolioSection() {
       price: t('portfolio.apps.localLockVault.price'),
       homepage: 'https://pro6764466369.web.app/',
       appStore: 'https://apps.apple.com/us/app/local-lock-vault/id6769601748'
+    },
+    {
+      id: 'wenpai',
+      title: t('portfolio.apps.wenpai.title'),
+      subtitle: t('portfolio.apps.wenpai.subtitle'),
+      category: t('portfolio.apps.wenpai.category'),
+      icon: '/images/wenpai_icon.png',
+      bgGradient: 'from-[#312e81] via-[#4338ca] to-[#06b6d4]',
+      platform: 'web',
+      role: t('portfolio.apps.wenpai.role'),
+      tech: ['Next.js / React', 'Tailwind CSS', 'Inline CSS Engine', 'Client-side Offline', 'Omni Parser'],
+      description: t('portfolio.apps.wenpai.description'),
+      details: t('portfolio.apps.wenpai.details'),
+      price: t('portfolio.apps.wenpai.price'),
+      homepage: 'https://wol.yourtools.xyz/',
+      appStore: ''
     }
   ];
 
@@ -265,6 +282,8 @@ export default function PortfolioSection() {
     : rawIosProjects;
   const macosProjects = PROJECTS.filter(project => project.platform === 'macos');
   const activeMacosProject = macosProjects.find(project => project.id === activeMacosTab) || macosProjects[0];
+  const webProjects = PROJECTS.filter(project => project.platform === 'web');
+  const activeWebProject = webProjects.find(project => project.id === activeWebTab) || webProjects[0];
   const selectedProject = PROJECTS.find(p => p.id === selectedProjectId) || null;
 
   return (
@@ -665,6 +684,242 @@ export default function PortfolioSection() {
           </div>
         )}
 
+        {/* Web Applications Zone */}
+        {webProjects.length > 0 && (
+          <div className="w-full mt-24">
+            <div className="mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-indigo-400" />
+                  <h3 className="text-xl md:text-2xl text-white/90 font-medium tracking-tight">
+                    {t('portfolio.webSectionTitle')}
+                  </h3>
+                </div>
+                <span className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full font-mono">
+                  Web ({webProjects.length})
+                </span>
+              </div>
+
+              {/* Segmented Switcher for Web Apps */}
+              <div className="flex items-center bg-white/[0.04] p-1 rounded-2xl border border-white/10 self-start sm:self-auto">
+                {webProjects.map((proj) => {
+                  const isActive = activeWebTab === proj.id;
+                  return (
+                    <button
+                      key={proj.id}
+                      onClick={() => setActiveWebTab(proj.id)}
+                      className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                        isActive
+                          ? 'bg-white/20 text-white shadow-[0_2px_12px_rgba(0,0,0,0.4)] border border-white/15'
+                          : 'text-white/40 hover:text-white/70 border border-transparent'
+                      }`}
+                    >
+                      <img src={proj.icon} alt={proj.title} className="w-4 h-4 rounded-md object-cover" />
+                      <span>{proj.title}</span>
+                      <span className="text-[9px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded-full border border-indigo-500/30 font-mono tracking-wider">
+                        ONLINE
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Browser window simulator */}
+            <div className="w-full liquid-glass rounded-3xl overflow-hidden shadow-[0_35px_80px_rgba(0,0,0,0.5)] border border-white/10 hover:border-white/15 transition-all duration-500">
+              {/* Browser Navigation Bar Header */}
+              <div className="h-12 bg-white/[0.02] border-b border-white/5 flex items-center justify-between px-6 relative">
+                {/* Traffic lights */}
+                <div className="flex gap-1.5 z-10">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56] opacity-80" />
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e] opacity-80" />
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f] opacity-80" />
+                </div>
+
+                {/* Central Address Bar */}
+                <div className="hidden sm:flex items-center gap-2 bg-black/40 border border-white/10 px-4 py-1 rounded-full text-xs text-white/50 font-mono max-w-sm w-full mx-4 justify-between">
+                  <div className="flex items-center gap-2 truncate">
+                    <Lock className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span className="text-white/75 truncate">{activeWebProject.homepage}</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-400/80 bg-emerald-500/10 px-1.5 py-0.2 rounded font-sans shrink-0">
+                    SSL Secure
+                  </span>
+                </div>
+
+                {/* Right Action */}
+                <div className="z-10 flex items-center gap-2">
+                  <a
+                    href={activeWebProject.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-white/50 hover:text-white flex items-center gap-1.5 transition-colors"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    <span className="hidden md:inline">wol.yourtools.xyz</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Window Content */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 p-8 lg:p-12 items-center">
+                {/* Left Col: Info & Presentation */}
+                <div className="lg:col-span-5 flex flex-col items-start text-left">
+                  <div className="flex items-center gap-5 mb-6">
+                    <motion.div
+                      whileHover={{ scale: 1.05, rotate: 2 }}
+                      onClick={() => setSelectedProjectId(activeWebProject.id)}
+                      className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.4)] border border-white/10 cursor-pointer flex-shrink-0"
+                    >
+                      <img src={activeWebProject.icon} alt={activeWebProject.title} className="w-full h-full object-cover" />
+                    </motion.div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-white/40 text-xs uppercase tracking-widest block">
+                          {activeWebProject.category} &bull; {activeWebProject.price}
+                        </span>
+                        <span className="text-[9px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-1.5 py-0.5 rounded-full font-mono">
+                          WEB
+                        </span>
+                      </div>
+                      <h4 
+                        onClick={() => setSelectedProjectId(activeWebProject.id)}
+                        className="text-white text-3xl font-semibold tracking-tight hover:text-white/80 cursor-pointer transition-colors"
+                      >
+                        {activeWebProject.title}
+                      </h4>
+                    </div>
+                  </div>
+
+                  <p className="text-white/70 text-sm md:text-base leading-relaxed mb-6 font-light">
+                    {activeWebProject.description}
+                  </p>
+
+                  {/* Highlights */}
+                  <div className="grid grid-cols-2 gap-2.5 mb-6 w-full text-xs text-white/70 font-light">
+                    <div className="flex items-center gap-2 bg-white/[0.03] p-2.5 rounded-xl border border-white/5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span className="truncate">纯文本自然语言智能识别</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-white/[0.03] p-2.5 rounded-xl border border-white/5">
+                      <Palette className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                      <span className="truncate">16 款新媒体主题一键排版</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-white/[0.03] p-2.5 rounded-xl border border-white/5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <span className="truncate">微信合规纯内联 CSS 样式</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-white/[0.03] p-2.5 rounded-xl border border-white/5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                      <span className="truncate">浏览器端运行 隐私零上传</span>
+                    </div>
+                  </div>
+
+                  {/* Tech stack badges */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {activeWebProject.tech.map((tech) => (
+                      <span key={tech} className="bg-white/5 border border-white/5 rounded-full px-3 py-1 text-xs text-white/60">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex flex-wrap gap-4 w-full sm:w-auto">
+                    <a
+                      href={activeWebProject.homepage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gradient-to-r from-indigo-500 via-indigo-600 to-teal-500 hover:from-indigo-600 hover:to-teal-600 hover:scale-105 transition-all text-white rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 shadow-lg shadow-indigo-500/25 cursor-pointer"
+                    >
+                      <Globe className="w-4 h-4" />
+                      {t('portfolio.openWebApp')}
+                      <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                    </a>
+                    <button
+                      onClick={() => setSelectedProjectId(activeWebProject.id)}
+                      className="liquid-glass border border-white/10 text-white hover:bg-white/5 transition-colors rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer"
+                    >
+                      {t('portfolio.viewDetails')} <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Right Col: High-fidelity Web Workbench UI Preview */}
+                <div className="lg:col-span-7 w-full">
+                  <div className="bg-[#0f1117]/95 rounded-2xl border border-indigo-500/20 overflow-hidden flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-5 md:p-6 relative group">
+                    {/* Ambient background glow */}
+                    <div className="absolute -top-24 -right-24 w-60 h-60 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+
+                    {/* Workbench Top Toolbar Simulator */}
+                    <div className="flex items-center justify-between pb-4 border-b border-white/5">
+                      <div className="flex items-center gap-2.5">
+                        <img src="/images/wenpai_icon.png" alt="文排 Logo" className="w-7 h-7 rounded-lg shadow-md border border-white/10" />
+                        <div className="text-left">
+                          <div className="text-xs font-semibold text-white tracking-wide flex items-center gap-1.5">
+                            文排 (WenPai)
+                            <span className="text-[10px] text-white/30 font-mono font-normal">v2.5</span>
+                          </div>
+                          <div className="text-[10px] text-white/40">微信公众号智能排版工具</div>
+                        </div>
+                      </div>
+
+                      {/* Toolbar Simulation Chips */}
+                      <div className="hidden sm:flex items-center gap-1.5">
+                        <span className="px-2.5 py-1 bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 rounded-lg text-[10px] font-medium flex items-center gap-1">
+                          <Palette className="w-3 h-3" /> 公众号风
+                        </span>
+                        <span className="px-2 py-1 bg-white/5 text-white/60 rounded-lg text-[10px]">
+                          正文 15px
+                        </span>
+                        <span className="px-2.5 py-1 bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 rounded-lg text-[10px] font-medium flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" /> 一键复制
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Preview Banner Showcase */}
+                    <div className="my-4 relative rounded-xl overflow-hidden border border-white/10 group/img">
+                      <img
+                        src="/images/wenpai_preview.png"
+                        alt="文排 微信公众号文章排版工具"
+                        className="w-full h-auto object-cover transition-transform duration-500 group-hover/img:scale-[1.02]"
+                      />
+                      <a
+                        href={activeWebProject.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute inset-0 bg-indigo-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs"
+                      >
+                        <span className="bg-white text-gray-900 font-semibold text-xs px-4 py-2 rounded-full shadow-lg flex items-center gap-1.5 transform translate-y-2 group-hover/img:translate-y-0 transition-transform">
+                          <span>{t('portfolio.openWebApp')}</span> <ExternalLink className="w-3.5 h-3.5" />
+                        </span>
+                      </a>
+                    </div>
+
+                    {/* Feature Highlights Footer */}
+                    <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/5 text-[10px] text-white/50 text-center font-sans">
+                      <div className="flex items-center justify-center gap-1">
+                        <Zap className="w-3 h-3 text-amber-400" />
+                        <span>毫秒级智能解析</span>
+                      </div>
+                      <div className="flex items-center justify-center gap-1">
+                        <Layers className="w-3 h-3 text-indigo-400" />
+                        <span>16 套排版主题</span>
+                      </div>
+                      <div className="flex items-center justify-center gap-1">
+                        <ShieldCheck className="w-3 h-3 text-emerald-400" />
+                        <span>本地内存零上传</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Modal Overlay using AnimatePresence */}
         <AnimatePresence>
           {selectedProject && (
@@ -750,6 +1005,15 @@ export default function PortfolioSection() {
                           className="bg-blue-600 hover:bg-blue-500 text-white hover:scale-105 transition-all rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer shadow-lg shadow-blue-500/20"
                         >
                           <Download className="w-4 h-4" /> {t('portfolio.downloadDmg')}
+                        </a>
+                      ) : selectedProject.platform === 'web' ? (
+                        <a
+                          href={selectedProject.homepage}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-gradient-to-r from-indigo-500 via-indigo-600 to-teal-500 hover:from-indigo-600 hover:to-teal-600 text-white hover:scale-105 transition-all rounded-full px-6 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer shadow-lg shadow-indigo-500/25"
+                        >
+                          <Globe className="w-4 h-4" /> {t('portfolio.openWebApp')}
                         </a>
                       ) : (
                         <a

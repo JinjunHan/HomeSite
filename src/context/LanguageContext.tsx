@@ -30,20 +30,24 @@ const translations = {
     },
     portfolio: {
       tag: 'OPC Collective',
-      title: 'iOS & macOS App Ecosystem',
-      subtitle: 'A curated showcase natively crafted by an alliance of independent creators (OPCs), prioritizing aesthetics, privacy, and craftsmanship.',
+      title: 'iOS, macOS & Web Ecosystem',
+      subtitle: 'A curated showcase of native and web applications crafted by an alliance of independent creators (OPCs), prioritizing aesthetics, privacy, and craftsmanship.',
       iosSectionTitle: 'iOS Mobile Applications',
       macosSectionTitle: 'macOS Desktop Spotlight',
       macosSectionSubtitle: 'Natively optimized for desktop productivity, layout, and privacy.',
+      webSectionTitle: 'Web Applications & Cloud Tools',
+      webSectionSubtitle: 'Browser-native productivity tools running 100% offline in client-side memory.',
       viewDetails: 'View App Details',
       role: 'Role',
       tech: 'Tech Stack',
       appStore: 'App Store',
       downloadDmg: 'Download DMG',
       homepage: 'Homepage',
+      openWebApp: 'Launch Web App',
       filterAll: 'All',
       filterIos: 'iOS',
       filterMac: 'macOS',
+      filterWeb: 'Web',
       apps: {
         babyfly: {
           title: 'BabyFly',
@@ -161,6 +165,15 @@ const translations = {
           description: 'Local Lock Vault is an offline password and private notes vault built for absolute local privacy.',
           details: 'Store credentials, accounts, private emails, and secure notes with local-only encryption. Unlock with master passcode or Face ID, hide passwords with anti-peeping, auto-clear clipboard, and export encrypted vault backups.',
           price: 'Free'
+        },
+        wenpai: {
+          title: 'WenPai',
+          subtitle: 'Smart WeChat Article Styler',
+          category: 'Productivity & Creator Tools',
+          role: 'Creator & Developer',
+          description: 'Free online WeChat Official Account styling tool. Intelligently parses plain text or Markdown to format headings, tables, and task lists with 16 curated themes. 100% private with local computation.',
+          details: 'WenPai (文排) is a modern, free web-based article formatting workbench designed for digital writers and WeChat publishers. Without memorizing complex Markdown symbols, simply paste natural plain text: its Omni engine parses multi-level headings (一, 二, 1.), structured tables, callouts, and task lists in milliseconds. Features 16 curated new-media themes, custom palette tuning, and strictly compliant inline CSS serialization to eliminate formatting glitches. Entirely computed in client-side browser memory with zero server upload for absolute data privacy.',
+          price: 'Free'
         }
       }
     },
@@ -221,20 +234,24 @@ const translations = {
     },
     portfolio: {
       tag: 'OPC 联合矩阵',
-      title: 'iOS & macOS 精选应用矩阵',
-      subtitle: '由数位独立创作者共同打造的原生应用矩阵，秉承设计美学、离线隐私与极致手艺——抱团取暖，相互照亮。',
+      title: 'iOS, macOS & Web 精选产品矩阵',
+      subtitle: '由数位独立创作者共同打造的多端原生与在线产品矩阵，秉承设计美学、离线隐私与极致手艺——抱团取暖，相互照亮。',
       iosSectionTitle: 'iOS 移动应用',
       macosSectionTitle: 'macOS 桌面应用专题',
       macosSectionSubtitle: '专为 macOS 桌面端优化的原生效率工具，无缝提效。',
+      webSectionTitle: 'Web 在线应用与工具',
+      webSectionSubtitle: '专为创作者打造的浏览器端效率工具，纯本地运算，即开即用。',
       viewDetails: '查看应用详情',
       role: '角色',
       tech: '技术栈',
       appStore: 'App Store',
       downloadDmg: '下载 DMG',
       homepage: '官方主页',
+      openWebApp: '立即体验',
       filterAll: '全部',
       filterIos: 'iOS',
       filterMac: 'macOS',
+      filterWeb: 'Web',
       apps: {
         babyfly: {
           title: 'BabyFly',
@@ -352,6 +369,15 @@ const translations = {
           description: '完全离线存储密码与敏感备忘录的安全保险库，坚持数据不出设备。',
           details: 'Local Lock Vault 专为不信任云端密码管理器的用户设计。采用本地高强度加密算法存储账户密码、私密邮箱和敏感笔记，支持主密码与 Face ID 解锁，防窥视隐藏，复制自动清空剪贴板，并提供通过“文件”应用导入导出加密物理备份的功能。',
           price: '免费'
+        },
+        wenpai: {
+          title: '文排 (WenPai)',
+          subtitle: '微信公众号智能排版工具',
+          category: '效率 / 创作工具',
+          role: '独立创作者 & 开发者',
+          description: '免费在线微信公众号文章排版工具。粘贴纯文本或 Markdown，智能识别章节标题、数据表格与清单，16 款精选主题一键美化复制。文章隐私全程本地零上传。',
+          details: '文排（WenPai）是一款专为创作者打造的在线公众号富文本智能排版利器。无需记忆复杂的 Markdown 语法，直接粘贴自然语言纯文本或工作文档，内置 Omni 语义引擎毫秒级识别多级章节序号（一、二、1.）、多形态表格、导读与重点微标。提供 16 套新媒体精选主题一键切换与自定义主色搭配，严格采用微信公众平台合规的纯内联 CSS 序列化技术，彻底杜绝后台排版错乱与叠字报错。全程在浏览器本地内存运行，文章数据零上传，兼顾极速排版与商业隐私安全。',
+          price: '免费'
         }
       }
     },
@@ -390,6 +416,7 @@ const translations = {
 interface LanguageContextProps {
   language: Language;
   setLanguage: (lang: Language) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (path: string) => any;
 }
 
@@ -408,8 +435,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     localStorage.setItem('language', lang);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const t = (path: string): any => {
     const langDict = translations[language];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const resolved = path.split('.').reduce((acc: any, part) => acc && acc[part], langDict);
     return resolved || path;
   };
@@ -421,6 +450,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {

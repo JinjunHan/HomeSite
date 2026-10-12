@@ -53,6 +53,15 @@ export default function Footer() {
           </a>
           <span className="text-white/10">·</span>
           <a 
+            href="https://wol.yourtools.xyz/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors duration-300"
+          >
+            文排
+          </a>
+          <span className="text-white/10">·</span>
+          <a 
             href="https://jinjunhan.github.io/XcodeControl/" 
             target="_blank" 
             rel="noopener noreferrer"
